@@ -1,0 +1,134 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>MORPHASE Quick Start Guide</title><style>
+@page { size: A4; margin: 16mm 15mm 16mm 15mm; }
+body { font-family: "Yu Gothic UI", "Yu Gothic", "Meiryo", "Segoe UI", sans-serif;
+       font-size: 10pt; line-height: 1.6; color: #222; }
+h1 { font-size: 20pt; border-bottom: 3px solid #2f6f9f; padding-bottom: 4px; margin-top: 0; }
+h2 { font-size: 14pt; border-left: 6px solid #2f6f9f; padding-left: 8px; margin-top: 22px;
+     page-break-after: avoid; }
+h3 { font-size: 11.5pt; margin-top: 16px; page-break-after: avoid; }
+h4 { font-size: 10.5pt; margin-top: 12px; page-break-after: avoid; }
+p, li { orphans: 3; widows: 3; }
+table { border-collapse: collapse; margin: 8px 0 12px; width: 100%; page-break-inside: auto; }
+tr { page-break-inside: avoid; }
+th, td { border: 1px solid #bbb; padding: 3px 6px; vertical-align: top; font-size: 9pt; }
+th { background: #e8f0f7; }
+td:first-child strong { white-space: nowrap; }   /* bold row labels stay on one line */
+code { font-family: Consolas, "MS Gothic", monospace; background: #f1f1f1; padding: 0 3px;
+       border-radius: 3px; font-size: 9pt; }
+pre { background: #1e1e1e; color: #e0e0e0; padding: 8px 10px; border-radius: 4px;
+      font-size: 8.5pt; line-height: 1.35; page-break-inside: avoid; white-space: pre; overflow: hidden; }
+pre code { background: none; color: inherit; padding: 0; }
+blockquote { border-left: 4px solid #e0a050; background: #fff7ea; margin: 8px 0; padding: 4px 10px; }
+hr { border: none; border-top: 1px solid #ccc; margin: 18px 0; }
+img { max-width: 100%; display: block; margin: 10px auto; page-break-inside: avoid; }
+em { color: #555; }
+</style></head><body><h1>MORPHASE Quick Start Guide</h1>
+<p><strong>MORPHASE</strong> is firmware that turns the M5Stack <strong>Cardputer ADV</strong> into a <strong>4-operator FM polyphonic synthesizer</strong>. You play it from a MIDI keyboard, and the Cardputer becomes the editor and controller for the sound. You can also move the sound by tilting the unit or waving your hand over a sensor.</p>
+<p>This guide takes you from power-on to your first sound and a quick tour of the main features. For a full description of every setting, see the Reference Guide.</p>
+<hr>
+<h2>1. What you need</h2>
+<table><tr><th>Item</th><th>Details</th></tr><tr><td><strong>Cardputer ADV</strong></td><td>The original Cardputer (non-ADV) is not supported</td></tr><tr><td><strong>microSD card</strong></td><td>FAT32. Patches and settings are saved here</td></tr><tr><td><strong>MIDI keyboard</strong></td><td>Connected in one of these ways</td></tr><tr><td>└ Standard</td><td>Plug an M5Stack <strong>Unit MIDI</strong> (U187) into the unit's Grove port and connect the keyboard with a 5-pin MIDI cable</td></tr><tr><td>└ BLE</td><td>An app or keyboard that sends Bluetooth MIDI, on iPhone / iPad etc. (Unit MIDI works too). Tested app: <a href="https://www.discodsp.com/en/keypad/">KeyPad</a></td></tr><tr><td><strong>Earphones</strong></td><td>Recommended. The built-in speaker barely reproduces low notes</td></tr></table>
+<p>MORPHASE comes in two builds, <strong>Standard</strong> and <strong>BLE</strong>. They differ in whether they accept Bluetooth MIDI and in how many notes can sound at once.</p>
+<table><tr><th></th><th>Standard</th><th>BLE</th></tr><tr><td>MIDI</td><td>Unit MIDI (DIN)</td><td>Unit MIDI (DIN) + Bluetooth MIDI</td></tr><tr><td>Notes at once</td><td>12</td><td>10</td></tr></table>
+<p>The startup screen and <code>SET &gt; Info</code> show which build you have (the BLE build adds <code> BLE</code>).</p>
+<hr>
+<h2>2. Start it up</h2>
+<p>Insert the microSD card and turn the power on.</p>
+<p><strong>The first time</strong>, a <code>/MORPHASE</code> folder is created on the card and <strong>32 factory patches</strong> (ready-made sounds) and 2 factory chains (explained later) are written to it. This takes a few seconds.</p>
+<p>After the startup screen, the <strong>PLAY screen</strong> appears. This is MORPHASE's "home screen".</p>
+<p><img alt="PLAY screen" src="file:///C:/dev/MORPHASE/docs/images/screens/play.png"></p>
+<table><tr><th>Area</th><th>Shows</th></tr><tr><td>Top row</td><td>Patch name (large), its position in the list (e.g. <code>1/32</code>), the algorithm and the number of notes sounding (e.g. <code>Algo 5  0/12</code>)</td></tr><tr><td>Row below</td><td>The notes sounding (one box per voice; with ARP On, the ARP's chord)</td></tr><tr><td>Center left</td><td>The output waveform (scope). Above it: GMorph and Feedback values, the FX letters (<code>C D R X V</code>), <code>GL</code>, the chain state and more</td></tr><tr><td>Bottom left</td><td>Pitch bend bar, ARP and LFO state, the <code>MIDI</code> <code>HOLD</code> <code>OCT</code> <code>TRN</code> <code>THR</code> indicators</td></tr><tr><td>Right column</td><td>Tilt (IMU) pad and X / Y state, tilt destinations, master volume (<code>VOL</code>)</td></tr></table>
+<p>The tabs <code>PLAY</code> <code>OP</code> <code>ALGO</code> <code>ARP</code> <code>LFO</code> <code>FX</code> <code>SET</code> run across the top of the screen.</p>
+<hr>
+<h2>3. Connect</h2>
+<h3>Standard build (Unit MIDI)</h3>
+<ol><li>Set the Unit MIDI DIP switch to <strong>BYPASS</strong> and the unit's Grove 5V switch to <strong>5VOUT</strong></li><li>Plug the Unit MIDI into the unit's Grove port (G1 / G2) and connect it to your keyboard's MIDI OUT</li><li>Play a key. If <code>MIDI</code> lights at the bottom left of the PLAY screen, MIDI is coming in</li></ol>
+<p>The receive channel starts as <strong>Omni</strong> (all channels).</p>
+<h3>BLE build (Bluetooth MIDI)</h3>
+<ol><li>When powered on, the unit waits for a Bluetooth MIDI connection under the name <code>MORPHASE</code>. A dim <strong><code>b</code></strong> appears right of the patch name on the PLAY screen</li><li>On iPhone / iPad, choose <code>MORPHASE</code> <strong>inside the app</strong> (its Bluetooth MIDI connection screen), not in the phone's Bluetooth settings</li><li>Once connected, it changes to a bright <strong><code>B</code></strong></li></ol>
+<p><img alt="PLAY screen on the BLE build (B right of the name)" src="file:///C:/dev/MORPHASE/docs/images/screens/play_ble.png"></p>
+<hr>
+<h2>4. Play your first sound</h2>
+<p>Play a few keys. The first sound is <code>01_EPiano</code> (electric piano). The harder you play, the brighter and louder it gets.</p>
+<h3>Choosing a patch (sound)</h3>
+<ul><li><strong>On the unit</strong>: press <code>Tab</code> a few times to reach the <strong>SET</strong> tab → <code>Enter</code> on <code>Patch</code> → <code>Enter</code> on <code>Load</code> → choose with <code>;</code> <code>.</code> and press <code>Enter</code></li><li><strong>From MIDI</strong>: Program Change 0–31 from your keyboard selects factory patches 01–32</li></ul>
+<h3>Five to try first</h3>
+<table><tr><th>Patch</th><th>What it sounds like</th></tr><tr><td><code>01_EPiano</code></td><td>Electric piano. Its character follows how hard you play</td></tr><tr><td><code>04_Organ</code></td><td>Organ. Sounds as long as you hold the keys</td></tr><tr><td><code>13_MorphLd</code></td><td>Mono lead. Tilt the unit to change the tone (next chapter)</td></tr><tr><td><code>23_TiltPad</code></td><td>Wide pad. Tilt to move the tone</td></tr><tr><td><code>25_Kick</code></td><td>Kick drum. Play low keys around C1–C2</td></tr></table>
+<h3>Basic keys</h3>
+<table><tr><th>Key</th><th>Action</th></tr><tr><td><code>K</code> / <code>L</code></td><td>Volume down / up (hold to keep changing)</td></tr><tr><td><code>;</code> / <code>.</code></td><td>Octave up / down (PLAY screen)</td></tr><tr><td><code>,</code> / <code>/</code></td><td>Transpose in semitones (PLAY screen)</td></tr><tr><td><code>Z</code> / <code>X</code></td><td>Pitch bend down / up while held</td></tr><tr><td><code>D</code></td><td>Note hold (keeps the notes you hold sounding until you press it again)</td></tr><tr><td><code>Shift+H</code></td><td>Show / hide the help for the current screen</td></tr><tr><td><code>G0</code> (the unit's G0 button)</td><td>Jump between the PLAY screen and the last editing tab you used</td></tr></table>
+<p><img alt="PLAY screen key map" src="file:///C:/dev/MORPHASE/docs/images/play_keymap_en.svg"></p>
+<hr>
+<h2>5. Tilt the unit</h2>
+<p>The Cardputer ADV has a tilt sensor (IMU). <strong>It starts Off</strong>, so turn it on first.</p>
+<table><tr><th>Key</th><th>Action</th></tr><tr><td><code>Shift+A</code></td><td>X axis (left/right tilt) On / Off</td></tr><tr><td><code>Shift+S</code></td><td>Y axis (front/back tilt) On / Off</td></tr><tr><td><code>A</code> / <code>S</code></td><td>Freeze (hold) / release the current tilt of that axis</td></tr></table>
+<p>Once it's on, tilting changes <strong>the tone (waveform) on the X axis and the grit (feedback) on the Y axis</strong> in most patches. Some patches, like <code>13_MorphLd</code> and <code>23_TiltPad</code>, have their own tilt movements built in. <code>32_Drone</code> falls apart as you tilt it.</p>
+<p><img alt="SET &gt; IMU" src="file:///C:/dev/MORPHASE/docs/images/screens/imu.png"></p>
+<p>What the tilt moves is set by <code>XTarget</code> / <code>YTarget</code> (destination) and <code>XDepth</code> / <code>YDepth</code> (depth) in <code>SET &gt; IMU</code>.</p>
+<hr>
+<h2>6. Add and remove FX</h2>
+<p>MORPHASE has five effects (Chorus / Delay / Reverb / Crush / Drive). While playing, these keys add or remove them temporarily.</p>
+<table><tr><th>Key</th><th>Effect</th><th>Letter on PLAY</th></tr><tr><td><code>q</code></td><td>Chorus (shimmer and width)</td><td><code>C</code></td></tr><tr><td><code>w</code></td><td>Delay (echo)</td><td><code>D</code></td></tr><tr><td><code>e</code></td><td>Reverb (room)</td><td><code>R</code></td></tr><tr><td><code>r</code></td><td>Crush (digital grit)</td><td><code>X</code></td></tr><tr><td><code>t</code></td><td>Drive (distortion)</td><td><code>V</code></td></tr></table>
+<p>Effects the patch uses are temporarily removed, and effects it doesn't use are temporarily added. This isn't saved; reloading the patch puts it back.</p>
+<p><strong>MORPHASE does not distort unless you use the distortion effects (Drive, Crush).</strong> When the sound gets too loud, the "output limiter" at the very end only turns the volume down, so nothing clips.</p>
+<h3>GLITCH (breaking it up on purpose)</h3>
+<p>While you hold <code>g</code>, the sound breaks up at random (repeating a fragment, playing backwards, chopping, knocking the tone off, and so on). Choose how in <code>SET &gt; Glitch</code>.</p>
+<hr>
+<h2>7. Change the sound a little</h2>
+<p>A MORPHASE sound is made of <strong>four operators (OPs)</strong>. An operator is a small oscillator that plays one waveform.</p>
+<ul><li><strong>Carrier</strong>: an operator that makes the sound you hear</li><li><strong>Modulator</strong>: an operator that wobbles a carrier's waveform to change its tone (you don't hear it directly)</li><li><strong>Ratio</strong>: the operator's frequency as a multiple of the note you play</li></ul>
+<p>Try it on the <strong>OP tab</strong>.</p>
+<ol><li>Go to the OP tab with <code>Tab</code>. Choose an operator with the number keys <code>1</code>–<code>4</code> (the screen shows <code>CARRIER</code> or <code>MODULATOR</code>)</li><li>Choose a setting with <code>;</code> <code>.</code> and change it with <code>,</code> <code>/</code> (hold to move in steps ten times larger)</li><li>Raising and lowering a modulator's <strong><code>Level</code></strong> changes the brightness a lot</li><li>Moving <strong><code>Morph</code></strong> changes that operator's waveform from a smooth sine towards sharper shapes</li><li>On the <strong><code>A</code> <code>D</code> <code>S</code> <code>R</code></strong> rows, an envelope graph (how the sound starts and fades) appears. Play a key and a white dot travels along the graph</li></ol>
+<p><img alt="Envelope graph on the OP tab" src="file:///C:/dev/MORPHASE/docs/images/screens/op_env.png"></p>
+<p>However much you change, the factory patch stays as it was unless you save.</p>
+<hr>
+<h2>8. Save a patch</h2>
+<p>Save from <code>SET &gt; Patch</code>.</p>
+<ul><li><strong>Save</strong>: overwrite the current patch (asks to confirm)</li><li><strong>SaveAs</strong>: save under a name (up to 12 characters: letters, digits, <code>-</code> <code>_</code> <code>.</code>)</li></ul>
+<p>Factory patches (names starting with digits, like <code>01_</code>) <strong>cannot be overwritten</strong>. Choosing Save opens the screen for saving under another name (e.g. <code>01_EPiano</code> → <code>EPiano2</code>). If you delete or change them by mistake, <code>SET &gt; Patch &gt; Factory</code> restores them all.</p>
+<hr>
+<h2>9. Try the morph</h2>
+<p>The feature MORPHASE is named after. It moves the sound smoothly from patch to patch.</p>
+<ol><li>Open <code>SET &gt; Patch &gt; Morph</code> (titled <code>MORPH &gt; Slots</code>). Eight slots hold patches (the "Pads" chain at first)</li><li>Press <code>Shift+1</code>–<code>Shift+8</code> to move from the current sound to that slot's patch over <code>Time</code> (1 second at first). The PLAY screen shows something like <code>M&gt;3 45%</code></li><li>To try drums, open <code>Chains &gt;</code> and Load <code>02_Drums</code> (slot 1 = <code>25_Kick</code>, 2 = <code>26_Tom</code>)</li></ol>
+<p><img alt="MORPH &gt; Slots" src="file:///C:/dev/MORPHASE/docs/images/screens/morph_slots.png"></p>
+<p><strong>The smoothest transitions are between patches with the same algorithm</strong> (the way the operators are connected). With different algorithms, the sound switches over part-way.</p>
+<p>To switch from your MIDI keyboard's pads, set <code>SET &gt; MIDI &gt; PC Mode</code> to <code>Morph</code>; Program Change 0–7 then moves to slots 1–8.</p>
+<hr>
+<h2>10. What MORPHASE can do</h2>
+<p>Here is the full picture, including the features you have already tried.</p>
+<p><strong>The FM engine</strong></p>
+<ul><li><strong>4-operator FM with 14 algorithms</strong>: 8 built around the classic 4-operator FM layouts, plus 6 with feedback in different places (for sawtooth, growl and metallic sounds)</li><li><strong>Waveform morphing</strong>: each operator slides smoothly through 8 waveforms, from a sine to sharp shapes. <code>GMorph</code> moves all four together</li><li><strong>Fixed-frequency operators and a pitch envelope</strong>: build percussion such as kicks, toms and metal hits</li><li><strong>12-note polyphony</strong> (10 on the BLE build). Mono, legato and glide too</li></ul>
+<p><strong>Patch morph: from sound to sound</strong></p>
+<ul><li>Moves between patches lined up in 8 slots, blending everything: ratios, envelopes, FX</li><li>Two ways: a <strong>chain</strong>, where a knob, tilt or LFO moves the "position", and <strong>glide</strong>, which slides to a chosen patch with <code>Shift+1–8</code> or MIDI pads</li><li>Chains can be saved under a name and switched one after another from a MIDI button</li></ul>
+<p><strong>GLITCH: breaking it up on purpose</strong></p>
+<ul><li>Repeat the last fragment, play it backwards, chop it (Stutter / Reverse / Gate)</li><li>Knock the tone off for a moment (Chaos)</li><li>Break up the arpeggio rhythm (ratchets, octave jumps, running backwards, rests)</li><li>Trigger it only while holding <code>g</code>, all the time, or as much as you tilt the unit</li></ul>
+<p><strong>Theremin (M5Stack Unit ToF4M)</strong></p>
+<ul><li><strong>Wave your hand</strong> over a distance sensor to move the sound</li><li>Two modes: <code>Mod</code>, where hand distance moves the tone and more, and <code>Play</code>, where your hand's height plays a note like an instrument. In <code>Play</code>, pitch can glide smoothly or snap to one of 49 scales</li><li>Play it along with the keys (chords with your left hand, theremin with your right)</li></ul>
+<p><strong>Move it with your body</strong></p>
+<ul><li><strong>Tilt the unit</strong> to change the tone (IMU; just turn it on and it works with most patches)</li><li>Teach it 4 knobs and 4 buttons on a MIDI controller just by moving them (MIDI Learn)</li></ul>
+<p><strong>Arpeggiator</strong></p>
+<ul><li>5 patterns (Up / Down / UpDown / Random / AsPlayed) + <strong>STEP</strong>: 16 steps hold "which note of the held chord", so changing the chord keeps the rhythm and changes only the notes</li><li>Latch, swing, sync to external MIDI clock, 8 saved patterns</li></ul>
+<p><strong>FX, and an output that doesn't clip</strong></p>
+<ul><li>Crush, Chorus, Delay, Reverb, Drive. Add and remove them while playing with <code>q w e r t</code></li><li>An output limiter at the end: even big chords only get turned down in volume, never bent in shape</li></ul>
+<p><strong>32 factory patches, ready to play</strong></p>
+<ul><li>From keys, bells, bass, leads and pads to drums and noise</li></ul>
+<p><strong>Two builds</strong></p>
+<ul><li>Standard (Unit MIDI) and BLE, which also plays over Bluetooth MIDI from an iPhone / iPad (tested app: <a href="https://www.discodsp.com/en/keypad/">KeyPad</a>)</li></ul>
+<hr>
+<h2>11. When you want to know more</h2>
+<p>The Reference Guide covers features such as:</p>
+<ul><li>The 14 algorithms, fixed-frequency operators, the pitch envelope</li><li>The arpeggiator (including step patterns) and ARP glitch</li><li>The LFO and the list of modulation destinations</li><li>Assigning MIDI knobs and buttons (MIDI Learn)</li><li>Saving chains and morphing in detail</li><li><strong>The theremin</strong> (plug in an M5Stack Unit ToF4M and move the tone or pitch with your hand)</li><li>The list of 32 factory patches and what to try on each</li></ul>
+<hr>
+<h2>12. Troubleshooting</h2>
+<h3>Start with the help</h3>
+<p>On any screen, <code>Shift+H</code> shows the keys for that screen. Press <code>Shift+H</code> again to hide it.</p>
+<p><img alt="Help on the PLAY screen" src="file:///C:/dev/MORPHASE/docs/images/screens/help.png"></p>
+<h3>No sound</h3>
+<ul><li>Is the master volume (<code>VOL</code> at the bottom right of the PLAY screen) at 0? Raise it with <code>L</code></li><li>Is MIDI coming in? Play a key and see whether <code>MIDI</code> lights. If not, check the Unit MIDI's orientation, its DIP switch (BYPASS) and the Grove 5V switch (5VOUT)</li><li>Does the receive channel (<code>SET &gt; MIDI &gt; Channel</code>) match your keyboard's send channel? (Omni at first)</li><li>Is a microSD card inserted? (Without a card the initial sound plays, but nothing is saved)</li></ul>
+<h3>The unit's keys stopped responding</h3>
+<p>Very rarely, for example after fast typing, the unit's keys can stop responding entirely. This is a known hardware quirk of the Cardputer ADV's keyboard chip (TCA8418). <strong>MORPHASE detects it and restarts itself after about 30 seconds.</strong> Just wait.</p>
+<h3>The BLE build won't connect</h3>
+<ul><li>Are you connecting from inside the app? (MIDI does not connect from the phone's Bluetooth settings screen)</li><li>If you have registered the same Cardputer as a Bluetooth device with other firmware before, remove that old entry in the phone's Bluetooth settings</li><li>Is <code>SET &gt; MIDI &gt; BLE</code> set to <code>On</code>? (Changing it needs a restart)</li></ul>
+<h3>Still stuck?</h3>
+<p>Open a GitHub Issue or contact the developer (@Tokagetchi).</p>
+<hr>
+<p><em>MORPHASE is an FM synthesizer made by an individual developer. Have fun moving the sound.</em></p></body></html>
