@@ -137,11 +137,19 @@ If you play a DIN MIDI keyboard through a Unit MIDI, choose **Standard**. If you
 
 ### Method 1 — M5Burner (easiest, recommended)
 
-1. Download and install [M5Burner](https://docs.m5stack.com/en/uiflow/M5Burner) from the official site
-2. Connect the Cardputer ADV to your computer with USB-C
-3. Search for "MORPHASE" in M5Burner and choose the Standard or BLE build
-4. Select the COM port and press "Burn"
-5. When writing finishes, MORPHASE starts
+Open the page for the build you want and flash it from your browser:
+
+| Build | M5Burner |
+|---|---|
+| Standard (Unit MIDI, 12 voices) | https://burner.m5stack.com/2TERQX |
+| BLE (Bluetooth MIDI + Unit MIDI, 10 voices) | https://burner.m5stack.com/GH5ZSE |
+
+1. Connect the Cardputer ADV to your computer with USB-C
+2. Open the link above in a browser that supports Web Serial (Chrome or Edge on a PC)
+3. Press the flash button and choose the Cardputer's port
+4. When writing finishes, MORPHASE starts
+
+> MORPHASE is on the new web version of M5Burner. It may not appear in the older M5Burner desktop app.
 
 ### Method 2 — Through Launcher FW
 
@@ -150,6 +158,8 @@ If you play a DIN MIDI keyboard through a Unit MIDI, choose **Standard**. If you
 1. Start Launcher FW on the Cardputer ADV
 2. Search for "MORPHASE" in the OTA function
 3. Choose the Standard or BLE build, then download and install
+
+> If MORPHASE doesn't show up in the OTA list, use Method 2b.
 
 #### Method 2b — Copying to the SD card by hand
 
