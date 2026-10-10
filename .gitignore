@@ -1,0 +1,24 @@
+# Build output and editor settings
+/.pio/
+/.vscode/
+
+# The PDFs' intermediate HTML (tools/docs/build_pdf.py)
+/docs/_build/
+
+# Kept on the author's PC, not in the public repository:
+# development records, test builds, release archives, screenshot sources,
+# the logo's source folder (published copy: docs/images/logo/), tools,
+# the Claude Code handover notes and launch scripts.
+# A leading / means the folder at the top of the repository only.
+/devdocs/
+/diag/
+/releases/
+/Shots/
+/logo/
+/tools/
+/CLAUDE.md
+/*.zip
+/start*.bat
+
+# GitHub's social preview image (set in the repository's Settings, not shipped)
+/docs/images/logo/social_preview_1280x640.png
