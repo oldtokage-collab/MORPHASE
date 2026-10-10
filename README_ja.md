@@ -137,11 +137,19 @@ DIN の MIDI キーボードを Unit MIDI でつなぐなら**通常版**、iPho
 
 ### 方法 1 — M5Burner でインストール（一番簡単・おすすめ）
 
-1. [M5Burner](https://docs.m5stack.com/en/uiflow/M5Burner) を公式サイトからダウンロード・インストールします
-2. Cardputer ADV を USB-C でパソコンに接続します
-3. M5Burner の中で「MORPHASE」を検索し、通常版か BLE 版を選びます
-4. COM ポートを選び、「Burn」（書き込み）ボタンを押します
-5. 書き込みが終わると、MORPHASE が起動します
+使いたい版のページを開き、ブラウザから書き込みます。
+
+| 版 | M5Burner |
+|---|---|
+| 通常版（Unit MIDI、12 音） | https://burner.m5stack.com/2TERQX |
+| BLE 版（Bluetooth MIDI + Unit MIDI、10 音） | https://burner.m5stack.com/GH5ZSE |
+
+1. Cardputer ADV を USB-C でパソコンに接続します
+2. 上のリンクを、Web Serial に対応したブラウザ（パソコンの Chrome か Edge）で開きます
+3. 書き込みのボタンを押し、Cardputer のポートを選びます
+4. 書き込みが終わると、MORPHASE が起動します
+
+> MORPHASE は新しい Web 版の M5Burner で公開しています。以前のパソコン用の M5Burner アプリには表示されない場合があります。
 
 ### 方法 2 — Launcher FW 経由でのインストール
 
@@ -150,6 +158,8 @@ DIN の MIDI キーボードを Unit MIDI でつなぐなら**通常版**、iPho
 1. Cardputer ADV で Launcher FW を起動します
 2. OTA 機能から「MORPHASE」を検索します
 3. 通常版か BLE 版を選び、ダウンロード・インストールします
+
+> OTA の一覧に MORPHASE が出てこない場合は、方法 2b をご利用ください。
 
 #### 方法 2b — SD カードに手動でコピーする
 
